@@ -1,0 +1,42 @@
+# Конфигурация специфичная для notification-service
+server:
+  port: 8082
+
+spring:
+  mail:
+    host: smtp.mail.ru
+    port: 465
+    username: mlvlad0304@mail.ru
+    password: WLPi1sA6xuhiuE13IfsB
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+    from:
+      address: mlvlad0304@mail.ru
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: notification-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: 'com.example.*'
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      emailService:
+        wait-duration-in-open-state: 60s
+        failure-rate-threshold: 30
