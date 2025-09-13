@@ -1,4 +1,3 @@
-# Конфигурация специфичная для user-service
 server:
   port: 8081
 
