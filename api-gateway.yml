@@ -31,3 +31,15 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka-server:8761/eureka/
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      userService:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+      notificationService:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
